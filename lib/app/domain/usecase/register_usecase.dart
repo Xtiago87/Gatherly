@@ -5,7 +5,7 @@ class RegisterUsecase {
 
   RegisterUsecase({required this.iAuthRepository});
 
-  Future<void> createAccount(String email, String password) async {
+  Future<bool> createAccount(String email, String password) async {
     return await iAuthRepository.createAccount(email, password);
   }
 }

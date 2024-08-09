@@ -18,13 +18,16 @@ class LoginController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void login(String email, String senha) async {
+  Future<void> login(String email, String senha) async {
     isLoading.value = true;
     notifyListeners();
-    print(email);
-    print(senha);
-    await loginUsecase. login(email, senha);
-    isLoading.value = false;
-    notifyListeners();
+    try {
+      final resp = await loginUsecase.login(email, senha);
+    } catch (e) {
+      rethrow;
+    } finally {
+      isLoading.value = false;
+      notifyListeners();
+    }
   }
 }

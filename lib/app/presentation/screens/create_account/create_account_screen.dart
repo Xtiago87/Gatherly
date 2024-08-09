@@ -2,16 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gatherly/app/presentation/controllers/create_account/create_account_controller.dart';
 
-class CreateAccountScreen extends StatelessWidget {
+class CreateAccountScreen extends StatefulWidget {
   CreateAccountScreen({super.key});
 
+  @override
+  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+}
+
+class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final TextEditingController emailTextField = TextEditingController();
+
   final TextEditingController cEmailTextField = TextEditingController();
+
   final TextEditingController senhaTextField = TextEditingController();
+
   final TextEditingController cSenhaTextField = TextEditingController();
+
   final CreateAccountController createAccountController =
       Modular.get<CreateAccountController>();
+
   final _formKey = GlobalKey<FormState>();
+
+  void register() async {
+    try {
+      await createAccountController.register(
+          emailTextField.text, senhaTextField.text);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Success!"),
+        backgroundColor: Colors.green,
+      ));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,8 +176,7 @@ class CreateAccountScreen extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                createAccountController.register(
-                                    emailTextField.text, senhaTextField.text);
+                                register();
                               }
                             },
                             child: const Padding(

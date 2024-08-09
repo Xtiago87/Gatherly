@@ -15,9 +15,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailTextField = TextEditingController();
   final TextEditingController senhaTextField = TextEditingController();
 
+  void login() async {
+    try {
+      await loginController.login(emailTextField.text, senhaTextField.text);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Success!"), backgroundColor: Colors.green,));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: Colors.red,));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return ListenableBuilder(
       listenable: loginController,
       builder: (context, child) => Stack(
@@ -82,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            loginController.login(emailTextField.text, senhaTextField.text);
+                            login();
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(16.0),

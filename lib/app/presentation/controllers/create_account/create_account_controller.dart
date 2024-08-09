@@ -15,13 +15,17 @@ class CreateAccountController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void register(String email, String password) async {
+  Future<void> register(String email, String password) async {
     isLoading.value = true;
     notifyListeners();
-    await usecase.createAccount(email, password);
-    Timer(Duration(seconds: 1), () {
+    try {
+      final resp = await usecase.createAccount(email, password);
+    } catch (e) {
+      print(e);
+      rethrow;
+    } finally {
       isLoading.value = false;
       notifyListeners();
-    });
+    }
   }
 }

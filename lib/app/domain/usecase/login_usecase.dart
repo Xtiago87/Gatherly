@@ -5,7 +5,7 @@ class LoginUsecase {
 
   LoginUsecase({required this.iAuthRepository});
 
-  Future<void> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     return await iAuthRepository.login(email, password);
   }
 }

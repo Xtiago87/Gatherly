@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  Future<void> createAccount({
+  Future<bool> createAccount({
     required String email,
     required String password,
   }) async {
@@ -10,20 +10,21 @@ class AuthService {
         email: email,
         password: password,
       );
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        //return 'The password provided is too weak.';
+        throw 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
-        //return 'The account already exists for that email.';
+        throw 'The account already exists for that email.';
       } else {
-        //return e.message;
+        throw e.message ?? "Algo de errado aconteceu! Tente novamente mais tarde.";
       }
     } catch (e) {
-      //return e.toString();
+      throw e.toString();
     }
   }
 
-  Future<void> login({
+  Future<bool> login({
     required String email,
     required String password,
   }) async {
@@ -33,16 +34,17 @@ class AuthService {
         password: password,
       );
       print(resp);
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        //return 'No user found for that email.';
+       throw 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
-        //return 'Wrong password provided for that user.';
+       throw 'Wrong password provided for that user.';
       } else {
-        //return e.message;
+        throw e.message ?? "Algo de errado aconteceu! Tente novamente mais tarde.";
       }
     } catch (e) {
-      //return e.toString();
+      throw e.toString();
     }
   }
 }

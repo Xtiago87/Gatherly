@@ -7,12 +7,12 @@ class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl({required this.authService});
 
   @override
-  Future<void> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
    return await authService.login(email: email, password: password);
   }
 
   @override
-  Future<void> createAccount(String email, String password) async {
+  Future<bool> createAccount(String email, String password) async {
     return await authService.createAccount(email: email, password: password);
   }
 }
