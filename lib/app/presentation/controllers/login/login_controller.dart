@@ -10,7 +10,7 @@ class LoginController extends ChangeNotifier {
   ValueNotifier<bool> isLoading = ValueNotifier(false);
 
   ValueNotifier<bool> _passwordVis = ValueNotifier(false);
-  
+
   bool get passwordVis => _passwordVis.value;
 
   void changePasswordVis() {
@@ -21,10 +21,10 @@ class LoginController extends ChangeNotifier {
   void login(String email, String senha) async {
     isLoading.value = true;
     notifyListeners();
-    await loginUsecase.login(email, senha);
-    Timer(Duration(seconds: 1), () {
-      isLoading.value = false;
-      notifyListeners();
-    });
+    print(email);
+    print(senha);
+    await loginUsecase. login(email, senha);
+    isLoading.value = false;
+    notifyListeners();
   }
 }

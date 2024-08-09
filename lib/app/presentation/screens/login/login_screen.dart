@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            loginController.login("email", "senha");
+                            loginController.login(emailTextField.text, senhaTextField.text);
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(16.0),
