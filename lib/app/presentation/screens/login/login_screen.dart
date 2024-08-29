@@ -90,7 +90,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            login();
+                            //login();
+                            Modular.to.pushReplacementNamed('/nav_screen');
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(16.0),

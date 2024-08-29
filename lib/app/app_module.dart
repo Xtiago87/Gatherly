@@ -7,7 +7,9 @@ import 'package:gatherly/app/domain/usecase/register_usecase.dart';
 import 'package:gatherly/app/presentation/controllers/create_account/create_account_controller.dart';
 import 'package:gatherly/app/presentation/controllers/login/login_controller.dart';
 import 'package:gatherly/app/presentation/screens/create_account/create_account_screen.dart';
+import 'package:gatherly/app/presentation/screens/create_event/create_event_screen.dart';
 import 'package:gatherly/app/presentation/screens/login/login_screen.dart';
+import 'package:gatherly/app/presentation/screens/navigation/bottom_nav_screen.dart';
 
 class AppModule extends Module {
   @override
@@ -24,5 +26,7 @@ class AppModule extends Module {
   void routes(r) {
     r.child('/', child: (context) => const LoginScreen());
     r.child('/register', child: (context) => CreateAccountScreen());
+    r.child('/nav_screen', child: (context) => const BottomNavScreen());
+    r.child('/create_event/:id', child: (context) => CreateEventScreen(id: int.parse(r.args.params['id']),));
   }
 }
