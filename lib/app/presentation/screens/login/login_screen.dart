@@ -18,9 +18,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() async {
     try {
       await loginController.login(emailTextField.text, senhaTextField.text);
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Success!"), backgroundColor: Colors.green,));
+      Modular.to.pushReplacementNamed('/nav_screen');
+      //ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Success!"), backgroundColor: Colors.green,));
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: Colors.red,));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erro ao realizar login"), backgroundColor: Colors.red,));
     }
   }
 
@@ -40,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <Widget>[
                       TextFormField(
                         controller: emailTextField,
+                        keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -78,20 +80,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 8,
                       ),
                       const SizedBox(
-                          width: double.infinity,
-                          child: Text(
-                            "Esqueceu sua senha?",
-                            textAlign: TextAlign.right,
-                          )),
-                      const SizedBox(
                         height: 54,
                       ),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            //login();
-                            Modular.to.pushReplacementNamed('/nav_screen');
+                            login();
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(16.0),

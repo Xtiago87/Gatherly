@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AuthService {
   Future<bool> createAccount({
@@ -6,10 +8,20 @@ class AuthService {
     required String password,
   }) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      User? user = userCredential.user;
+
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+
+      await FirebaseFirestore.instance.collection('users').doc(user?.uid).set({
+        'email': email,
+        'fcmToken': fcmToken
+      });
+
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -34,6 +46,15 @@ class AuthService {
         password: password,
       );
       print(resp);
+
+     User? user = resp.user;
+
+     String? fcmToken = await FirebaseMessaging.instance.getToken();
+
+     await FirebaseFirestore.instance.collection('users').doc(user?.uid).set({
+       'email': email,
+       'fcmToken': fcmToken
+     });
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
