@@ -9,7 +9,7 @@ class LoginController extends ChangeNotifier {
 
   ValueNotifier<bool> isLoading = ValueNotifier(false);
 
-  ValueNotifier<bool> _passwordVis = ValueNotifier(false);
+  ValueNotifier<bool> _passwordVis = ValueNotifier(true);
 
   bool get passwordVis => _passwordVis.value;
 

@@ -38,12 +38,12 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.event),
-            label: 'Events',
+            label: 'Eventos',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+       //   BottomNavigationBarItem(
+       //     icon: Icon(Icons.person),
+        //    label: 'Perfil',
+        //  ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
